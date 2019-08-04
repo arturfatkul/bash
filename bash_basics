@@ -1,0 +1,305 @@
+#Usefull bash commands
+
+wc - word count command
+test [ 
+time 
+sleep
+date
+seq
+sort
+uniq  
+cut  - e.g. cat  /etc/passwd | cut -d: -f3
+
+tr - echo FILE | tr A-Z a-z ; echo FILE | tr [:upper:] [:lower:]
+---------------------------------------------------------------
+e.g. script for tr command
+
+	#!/bin/bash
+	
+		myfilename=`basename $0`
+
+		for i in `ls -A`
+		do
+			if [ $i = $myfilename ]
+			then
+		echo "Sorry, can't rename myself!"
+		elseif [ $i != $myfilename ]
+			newname=`echo $i | tr A-Z a-z`
+		mv $i $newname
+		done
+-------------------------------------------------------------
+read - e.g. read var1 var1 ; read -n 3 var3
+set
+source 			
+touch file{1,2,3} ; touch file{1,2,3}file 
+mkdir test{1,2,3,4,5}	
+mkdir test{1,2,3,4,5}{1,2,3,4,5}
+rm -rf  test{1,2,3,4,5}{1,2,3,4,5}	
+alias rm='rm -i'; alias cp='cp -i' ; unalias rm (bashrc)
+$? - exit status - 0 true ; 1 false ; 8 bit field 0 to 255
+$0 - name of the script - e.g. `basename $0`
+$# - number of parameters
+; - command chaining e.g. ls -l ; pwd ; echo "test of the command chaining"
+&& - and, run if true 
+|| - or, run if false
+< > >> 2> - standart input, output, append output, error
+etcdir=`ls -l /etc` ; echo "$etcdir" - formating output, double quotes
+command substition - `ls -l` or $(ls -l) 
+quotes = "this is a test $5" - var ; 'this is a test $5' - without var
+---------------------------------------------------------------------------------------------
+
+Programming examples
+------------------------------------------------------------------------------------------------
+read var - input to var
+echo $var - output from var
+
+. name-of-the-scripts or source - include of a scripts
+
+--------------
+FUNCTIONS
+-------------
+
+function showdate() {
+         date +%F
+}
+
+showdate () { date +%F }
+
+showdate
+
+-----------------
+FOR LOOPS
+-----------------
+
+for arg in [list]; do action item done
+
+e.g 1
+
+for countries in USA Australia France
+do
+                echo $countries
+done
+
+e.g. 2
+
+PASSFILE="/etc/passwd"
+COUNT=0
+
+for  user in `cat $PASSFILE | cut -f 1 -d ':'`
+do
+                        echo $user
+                        let "COUNT += 1"
+done
+
+echo There are $COUNT users registered on the system
+
+---------------------
+WHILE LOOPS
+----------------------
+
+e.g1
+
+NUM=0
+MAX=20
+
+while [ "$NUM" -lt "$MAX" ]
+do
+               echo $NUM
+                let "NUM += 1"
+done
+
+Do while it's True and  body, between do and done run if the exit status is 0 of while loop condition.
+
+------------------
+UNTIL LOOPS
+------------------
+
+Do until it's False and body, between do and done run if the exit status is 1 of until loop condition
+
+e.g.1
+
+NUM=100
+MIN=20
+
+until [ "$NUM" -eq "$MIN" ]
+do
+
+               echo $NUM
+               let "NUM -=1"
+done
+
+e.g.2
+
+until [ "$STATUS" -eq "0" ]
+do
+         ping -c 1 192.168.1.35
+         echo The host is down
+         STATUS=`echo $?`
+done
+
+-------------
+IF-THEN-ELSE-ELIF
+------------
+
+e.g.1
+
+if [ 1 -eq 1 ]
+then
+           echo Both values are equal
+fi
+
+e.g.2
+
+if [ 1 -eq 2 ]
+then
+              echo Both values are equal
+else
+               echo Both values unequal
+fi
+
+e.g.3
+
+if [ "unix" = "unix" ]
+then 
+             echo Both values are equal
+else
+              echo Both values unequal
+fi
+
+e.g. 4
+
+for countries in USA France Argentina Jamaica
+do
+
+          if [ "$countries" = "USA" ]
+          then
+          echo Welcome to the USA
+          elif [ "$countries" = "Jamaica" ]
+          then
+          echo One Love
+           fi
+done
+
+eg5 
+
+if [ -e hellowordl.sh ]
+then
+                echo File exists
+else
+                 echo File does NOT exist
+fi
+
+eg6
+
+touch file{1,2}
+
+if [ "file1" -nt "file2" ]
+then
+          echo file1 newer
+else
+           echo file2 newer
+fi
+
+eg7 
+
+netstat -ant | grep :80 > /dev/null
+APACHESTATUS="$?"
+
+if [ $APACHESTATUS -eq 0 ]
+then
+        echo Apache is running!
+        #Check MySQL status
+                netstat -ant | grep 3306 > /dev/null
+                MYSQLSTATUS="$?"
+                        if [ $MYSQLSTATUS != 0 ]
+                        then
+                                echo MySQL does NOT running!
+                        fi
+else
+        echo Apache does NOT running!
+fi
+
+----------------
+CASE
+----------------
+
+for countries in USA France Latvia Jamaica Kazakhstan
+do
+        case $countries in
+        USA )
+        echo Welcome to the USA ;;
+        France )
+        echo Merci ;;
+        Latvia )
+        echo Welcom to the former USSR ;;
+        Jamaica )
+        echo One Love ;;
+        * )
+        echo Welcome to the shitland ;;
+        esac
+
+done
+
+------------------------------------------
+POSITIONAL PARAMETERS
+------------------------------------------
+
+Positional parameters are seperated by spaces
+
+$# - number of parameters
+$0 - name of script
+$1 - parameter one
+$2 - parameter two etc....
+
+eg1
+
+#!/bin/bash
+
+BADPARAM=165
+
+if [ $# != 1 ]
+then
+        echo This scripts requires one argument!
+        exit $BADPARAM
+else
+
+        if [ "$1" != "hello" ]
+        then
+                echo "Wrong arguments, try again!"
+                exit $BADPARAM
+        else
+                echo "It's works!"
+fi
+fi
+
+note: If parameters is more than 10, then use it like this  ${10} 
+
+-------------
+SELECT
+-------------
+
+Select uses PS3 variable to change it's prompt.
+
+eg1
+
+
+#!/bin/bash
+
+PS3="Please select a choice "
+LIST="Choice1 Choice2 Quit"
+
+
+select i in $LIST
+do
+        if [ $i = "Choice1" ]
+        then
+                echo Hello World
+        elif [ $i = "Choice2" ]
+        then
+                echo Goodbye World
+        elif [ $i = "Quit" ]
+        then
+        exit
+        fi
+done
+
