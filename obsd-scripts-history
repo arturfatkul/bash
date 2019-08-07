@@ -38,6 +38,6 @@ if [ `ps -auxc | awk ' /_dhcp/ { print $11 }'` 2> /dev/null = "dhcpd" ]
 	then
 		kill -9 `ps -aux | awk ' /_dhcp/ { print $2 }'` 2> /dev/null
 		dhcpd
-		echo "Dhcpd restarted
+		echo "Dhcpd has been restarted
 	else
-		echo "Dhcpd not started
+		echo "Dhcpd disabled
