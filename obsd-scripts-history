@@ -1,8 +1,7 @@
 #!/bin/bash
 
-------------------
-ADSL
-------------------
+# ADSL
+
 
 while :
 do
@@ -31,9 +30,9 @@ esac
 done
 
 
-------------------
-dhcpd obsd
------------------
+
+#dhcpd obsd
+
 
 
 if [ `ps -auxc | awk ' /_dhcp/ { print $11 }'` 2> /dev/null = "dhcpd" ]
