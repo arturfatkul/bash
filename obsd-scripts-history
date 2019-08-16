@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# ADSL
+# My very first bash scripts that was written long time ago for my OpenBSD gateway, copied here just for the history :) 
 
+
+# ADSL Menu
 
 while :
 do
