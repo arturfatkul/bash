@@ -16,7 +16,7 @@ do
     CHAR4=$(echo ${INTEGER} | fold -w1 | shuf | head -c1)
     ALL_CHARS=${CHAR1}${CHAR2}${CHAR3}${CHAR4}
     ARRAY+=${ALL_CHARS}
-    # Randomization to change the order 
+    # Randomize further to change the order 
     RANDOM_PASSWORD=$(echo ${ARRAY} | fold -w1 | shuf | tr -d '\n')
 done
 
