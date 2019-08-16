@@ -21,3 +21,5 @@ do
 done
 
 echo "${RANDOM_PASSWORD}"
+
+exit 0
