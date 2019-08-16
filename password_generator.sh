@@ -9,7 +9,7 @@ INTEGER='1234567890'
 until [[ x -gt 5 ]]
 do 
     ((x=x+1))
-    # Get random number from the variables
+    # Get random character from the variables
     CHAR1=$(echo ${LOW} | fold -w1 | shuf | head -c1)
     CHAR2=$(echo ${CAP} | fold -w1 | shuf | head -c1)
     CHAR3=$(echo ${SPECIAL} | fold -w1 | shuf | head -c1)
