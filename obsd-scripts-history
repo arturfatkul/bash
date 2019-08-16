@@ -33,9 +33,7 @@ done
 
 
 
-#dhcpd obsd
-
-
+# On one of the earliest version of OpenBSD (mid 2000s) I didn't know the best way for reloading DHCP daemon.
 
 if [ `ps -auxc | awk ' /_dhcp/ { print $11 }'` 2> /dev/null = "dhcpd" ]
 	then
