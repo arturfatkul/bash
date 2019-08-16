@@ -5,7 +5,7 @@ CAP='QWERTYUIOPASDFGHJKLZXCVBNM'
 SPECIAL='!@#$%^&*()_+{}[];:?></\|-='
 INTEGER='1234567890'
 
-# You can change the length of the password by changing the interger value inside UNTIL condition
+# You can change the length of the password by changing the interger value inside UNTIL loop condition
 until [[ x -gt 5 ]]
 do 
     ((x=x+1))
