@@ -10,7 +10,7 @@ fi
 
 if [[ ${#} -eq 0 ]]
 then
-    echo "Usage:./add_new_user_account.sh ACCOUNT [COMMENTS]..."
+    echo "Usage:./add_new_user_account.sh ACCOUNT_NAME [COMMENTS]..."
     exit 1
 fi
 
