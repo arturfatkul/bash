@@ -38,7 +38,7 @@ done
 
 
 
-#Create the username and shift comment parameters for correct output 
+#Create the username and shift comment parameter for correct output 
 USER_NAME=${1}
 useradd -m ${USER_NAME} -c "${*}" ; shift
 
