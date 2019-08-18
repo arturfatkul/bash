@@ -42,12 +42,12 @@ done
 USER_NAME=${1}
 useradd -m ${USER_NAME} -c "${*}" ; shift
 
-
 if [[ "${?}" -ne 0 ]]
 then
     echo "The ACCOUNT could not be created."
     exit 1
 fi
+
 
 #Set the password
 echo ${RANDOM_PASSWORD} | passwd --stdin ${USER_NAME}
