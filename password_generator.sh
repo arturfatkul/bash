@@ -9,14 +9,14 @@ INTEGER='1234567890'
 until [[ x -gt 5 ]]
 do 
     ((x=x+1))
-    # Get random character from the variables
+    # Get random character
     CHAR1=$(echo ${LOW} | fold -w1 | shuf | head -c1)
     CHAR2=$(echo ${CAP} | fold -w1 | shuf | head -c1)
     CHAR3=$(echo ${SPECIAL} | fold -w1 | shuf | head -c1)
     CHAR4=$(echo ${INTEGER} | fold -w1 | shuf | head -c1)
     ALL_CHARS=${CHAR1}${CHAR2}${CHAR3}${CHAR4}
     ARRAY+=${ALL_CHARS}
-    # Randomize further to change the order 
+    # Randomization to change the order 
     RANDOM_PASSWORD=$(echo ${ARRAY} | fold -w1 | shuf | tr -d '\n')
 done
 
