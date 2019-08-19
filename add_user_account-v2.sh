@@ -10,7 +10,7 @@ fi
 
 if [[ ${#} -eq 0 ]]
 then
-    echo "Usage:./add_new_user_account.sh ACCOUNT_NAME [COMMENTS]..."
+    echo "Usage:./add_new_user_account.sh USERNAME [COMMENTS]..."
     exit 1
 fi
 
@@ -25,7 +25,7 @@ INTEGER='1234567890'
 until [[ x -gt 5 ]]
 do 
     ((x=x+1))
-    # Get random number from the variables
+    # Get random character
     CHAR1=$(echo ${LOW} | fold -w1 | shuf | head -c1)
     CHAR2=$(echo ${CAP} | fold -w1 | shuf | head -c1)
     CHAR3=$(echo ${SPECIAL} | fold -w1 | shuf | head -c1)
