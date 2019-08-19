@@ -10,7 +10,7 @@ fi
 
 if [[ ${#} -eq 0 ]]
 then
-    echo "Usage:${0} USERNAME [COMMENTS]..."
+    echo "Usage: ${0} USERNAME [COMMENTS]..."
     exit 1
 fi
 
