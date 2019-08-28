@@ -22,7 +22,7 @@ SPECIAL='!@#$%^&*()_+{}[];:?></\|-='
 INTEGER='1234567890'
 
 # You can change the length of the password by changing the interger value inside UNTIL condition
-until [[ x -gt 5 ]]
+until [[ x -ge 2 ]]
 do 
     ((x=x+1))
     # Get random character
