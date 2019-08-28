@@ -15,17 +15,12 @@ LOW='qwertyuiopasdfghjklzxcvbnm'
 CAP='QWERTYUIOPASDFGHJKLZXCVBNM'
 SPECIAL='!@#$%^&*()_+{}[];:?></\|-='
 INTEGER='1234567890'
-LENGTH=0
 
 while getopts l: OPTION
 do
   case ${OPTION} in
-    l)
-      LENGTH=${OPTARG}
-      ;;
-    ?)
-      usage
-      ;;
+    l) LENGTH=${OPTARG};;
+    ?) usage ;;
    esac
 done
 
