@@ -26,7 +26,7 @@ INTEGER='1234567890'
 
 until [[ x -ge ${LENGTH}  ]]
 do
-    # Get random number from the variables
+    # Get random number
     CHAR1=$(echo ${LOW} | fold -w1 | shuf | head -c1)
     CHAR2=$(echo ${CAP} | fold -w1 | shuf | head -c1)
     CHAR3=$(echo ${SPECIAL} | fold -w1 | shuf | head -c1)
@@ -47,7 +47,7 @@ RANDOM_PASSWORD=$(echo ${ARRAY} | fold -w1 | shuf | tr -d '\n')
 
 
 
-#Create the username and shift comment parameters for correct output 
+#Create the username and shift comment parameters for the correct output 
 USER_NAME=${1}
 useradd -m ${USER_NAME} -c "${*}" ; shift
 
