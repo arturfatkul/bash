@@ -26,7 +26,7 @@ INTEGER='1234567890'
 
 until [[ x -ge ${LENGTH}  ]]
 do
-    # Get random number
+    # Get random character
     CHAR1=$(echo ${LOW} | fold -w1 | shuf | head -c1)
     CHAR2=$(echo ${CAP} | fold -w1 | shuf | head -c1)
     CHAR3=$(echo ${SPECIAL} | fold -w1 | shuf | head -c1)
