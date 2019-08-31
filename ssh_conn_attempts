@@ -1,0 +1,26 @@
+#!/bin/bash
+
+ATTEMPTS=10
+LOG_FILE="${1}"
+
+if [[ ! -e "${LOG_FILE}" ]]
+then
+   echo "Cannot open log file: ${LOG_FILE}" >&2
+   exit 1
+fi
+
+# Display the CSV header.
+echo 'Count,IP,Location' 
+
+#Loop through the list of failed attempts 
+grep "Failed password" ${LOG_FILE} | awk '{ print $(NF - 3) }' | grep -v ^COMMAND | sort -r | uniq -c | while read COUNT IP
+do
+# If the numnber of failed attempts is greater the ATTEMPTS, display count, IP and location.
+  if [[ "${COUNT}" -gt "${ATTEMPTS}" ]]
+  then
+      LOCATION=$(geoiplookup ${IP} | awk -F ', ' '{ print $2 }')
+      echo "${COUNT},${IP},${LOCATION}"
+  fi
+done
+
+exit 0
