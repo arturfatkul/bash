@@ -38,9 +38,11 @@ for SERVER in $(cat ${SERVER_LIST})
 do
    if [[ ${SUDO} = 'true' ]]
    then
+       echo ${SERVER}
        ssh -o ConnectTimeout=2 ${SERVER} 'sudo' "${4}"
        SSH_EXIT_STATUS="${?}"
    else
+       echo ${SERVER}
        ssh -o ConnectTimeout=2 ${SERVER} "${3}"
        SSH_EXIT_STATUS="${?}"
 
