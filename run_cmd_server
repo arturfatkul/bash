@@ -1,0 +1,55 @@
+#!/bin/bash
+
+usage() {
+    echo "Usage: ${0} [-s] [-f FILE] COMMAND" >&2
+    echo "Run COMMAND as single command on every server, use single quote for complex command"
+    echo "    -f  FILE   Use FILE for the list of servers."
+    echo "    -s         Execute the COMMAND using sudo on the remote server."
+}
+
+if [[ ${UID} -eq 0 ]]
+then
+    echo "Don't execute this script as root. Use the -s option instead" >&2
+    exit 1
+fi
+
+if [[ "${#}" -lt 1 ]]
+then
+    usage
+fi
+
+
+while getopts sf: OPTION
+do
+  case ${OPTION} in
+    f) SERVER_LIST=${OPTARG} ;;
+    s) SUDO='true';;
+    ?) usage ;;
+   esac
+done
+
+if [[ ! -e "${SERVER_LIST}" ]]
+then
+    echo "Cannot open server list file ${SERVER_LIST}. " >&2
+    exit 1
+fi
+
+for SERVER in $(cat ${SERVER_LIST})
+do
+   if [[ ${SUDO} = 'true' ]]
+   then
+       ssh -o ConnectTimeout=2 ${SERVER} 'sudo' "${4}"
+       SSH_EXIT_STATUS="${?}"
+   else
+       ssh -o ConnectTimeout=2 ${SERVER} "${3}"
+       SSH_EXIT_STATUS="${?}"
+
+     if [[ "${SSH_EXIT_STATUS}" -ne 0 ]]
+     then
+         EXIT_STATUS="${SSH_EXIT_STATUS}"
+         echo "Execute on ${SERVER} failed. " >&2
+     fi
+   fi
+done
+
+exit ${EXIT_STATUS}
