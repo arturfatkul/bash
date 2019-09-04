@@ -2,7 +2,7 @@
 
 usage() {
     echo "Usage: ${0} [-s] [-f FILE] COMMAND" >&2
-    echo "Run COMMAND as single command on every server, use single quote for complex command"
+    echo "Run COMMAND as single command on every server, use quote for complex command"
     echo "    -f  FILE   Use FILE for the list of servers."
     echo "    -s         Execute the COMMAND using sudo on the remote server."
 }
